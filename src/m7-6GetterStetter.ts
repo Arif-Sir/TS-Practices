@@ -24,5 +24,3 @@ const ar = new BankAccount(2852,'AR', 20);
 
 console.log(ar.getBalance());
 
-//=========================
-// 7-7 Static in typescript 
