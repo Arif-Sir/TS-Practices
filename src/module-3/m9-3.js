@@ -13,4 +13,5 @@ if(time<12){
 }   
 
 
-console.log(`${greeting}, ${name}`);
+// console.log(`${greeting}, ${name}`) 
+
