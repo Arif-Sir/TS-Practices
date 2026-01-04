@@ -1,4 +1,4 @@
-const crypto = rewuire('crypto');
+const crypto = require('crypto');
 
 const algo = 'aes-256-cbc';
 
@@ -6,8 +6,9 @@ const key = crypto.randomBytes(32);;
 const iv = crypto.randomBytes(16);
 
 function encrypt (text) {
-    const cipher = crypto.creatCipheriv(algo , key, iv);
-    let encrypted = cipher.update(text, 'uft-8', 'hex');
+    const cipher = crypto.createCipheriv
+    (algo , key, iv);
+    let encrypted = cipher.update(text, 'utf-8', 'hex');
 
     encrypted += cipher.final('hex');
     return {
@@ -18,8 +19,21 @@ function encrypt (text) {
 }
 
 function decrypt(encryptedData, ivHex){
-    const decipher = crypto.creatCipheriv(algo,key, Buffer.form(ivHex, "hex"));
-    let decrypted = decipher.update(encryptedData, "hex", "uft-8");
-    decrypted += decipher.final("uft-8");
+    const decipher = crypto.createDecipheriv(algo,key, Buffer.from(ivHex, "hex"));
+    let decrypted = decipher.update(encryptedData, "hex", "utf-8");
+    decrypted += decipher.final("utf-8");
     return decrypted;
 }
+
+console.log("Encrpt Data: ");
+const sensitiveData = ("My card 4242 4242 4242 4242 ")
+console.log("Orginal data : ", sensitiveData);
+
+
+const encrypted = encrypt(sensitiveData);
+console.log("Encrypted : ", encrypted);
+
+const decrypted = decrypt(encrypted.encryptedData, encrypted.iv);
+console.log("Decrypted: ", decrypted);
+
+console.log("match: ", sensitiveData === decrypted);
